@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Button, Input, Label, Forma } from './Form.styled';
 import { nanoid } from 'nanoid';
 
@@ -10,10 +11,12 @@ export class Form extends Component {
   };
 
   handleInputChange = e => {
-    const { name, value } = e.currentTarget;
+    const { name, value, number } = e.currentTarget;
     this.setState({ [name]: value });
+    this.setState({ id: nanoid(4) });
     const contacts = this.props.state.contacts;
-    contacts.forEach(({ name, number }) => {
+    contacts.forEach(contact => {
+      const { name, number } = contact;
       if (
         // name.toLowerCase() === value.toLowerCase() ||
         number === value
@@ -21,8 +24,6 @@ export class Form extends Component {
         alert(`${name} is already in contacts`);
         this.reset();
       }
-      this.setState({ [name]: value });
-      this.setState({ id: nanoid(4) });
     });
   };
 
@@ -76,3 +77,9 @@ export class Form extends Component {
   }
 }
 export default Form;
+
+Form.propTypes = {
+  onSubmit: PropTypes.func,
+  value: PropTypes.string,
+  onChange: PropTypes.func,
+};

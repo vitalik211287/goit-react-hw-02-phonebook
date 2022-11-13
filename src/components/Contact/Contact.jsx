@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Title } from 'components/App.styled';
 import { ContactsItem, ContactsList } from './Contacts.styled';
 
@@ -28,3 +29,8 @@ const Contact = ({ contacts, deleteContact }) => {
   );
 };
 export default Contact;
+
+Contact.propTypes = {
+  contacts: PropTypes.arrayOf(PropTypes.object),
+  deleteContact: PropTypes.func,
+};
